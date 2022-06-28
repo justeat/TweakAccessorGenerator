@@ -1,7 +1,4 @@
-//
-//  TweakAccessorCodeGenerator.swift
-//  Copyright © 2021 Just Eat Takeaway. All rights reserved.
-//
+//  CodeGenerator.swift
 
 import Foundation
 
