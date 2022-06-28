@@ -4,6 +4,7 @@
 //
 
 import XCTest
+@testable import TweakAccessorGenerator
 
 class TweakAccessorCodeGeneratorTests: XCTestCase {
     
@@ -17,7 +18,7 @@ class TweakAccessorCodeGeneratorTests: XCTestCase {
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        bundle = Bundle(for: type(of: self))
+        bundle = Bundle.module
         tweaksFilePath = try XCTUnwrap(bundle.path(forResource: tweaksFilename, ofType: "json"))
         codeGenerator = TweakAccessorCodeGenerator()
         tweakLoader = TweakLoader()
@@ -53,7 +54,7 @@ class TweakAccessorCodeGeneratorTests: XCTestCase {
     }
     
     private func codeBlock(for customTweakProviderFile: String) throws -> String {
-        let testBundle = Bundle(for: TweakAccessorCodeGeneratorTests.self)
+        let testBundle = Bundle.module
         let filePath = try XCTUnwrap(testBundle.path(forResource: customTweakProviderFile, ofType: ""))
         return try String(contentsOfFile: filePath)
     }

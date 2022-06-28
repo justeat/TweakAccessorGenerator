@@ -4,6 +4,7 @@
 //
 
 import XCTest
+@testable import TweakAccessorGenerator
 
 class Array_DuplicatesTests: XCTestCase {
 

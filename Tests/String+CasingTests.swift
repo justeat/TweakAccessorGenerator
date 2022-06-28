@@ -4,6 +4,7 @@
 //
 
 import XCTest
+@testable import TweakAccessorGenerator
 
 class String_CasingTests: XCTestCase {
 
