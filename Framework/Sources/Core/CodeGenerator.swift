@@ -5,7 +5,7 @@
 
 import Foundation
 
-class TweakAccessorCodeGenerator {
+class CodeGenerator {
     
     private let featuresConst = "Features"
     private let variablesConst = "Variables"
@@ -16,11 +16,11 @@ class TweakAccessorCodeGenerator {
     private let tweakManagerConst = "<TWEAK_MANAGER_CONTENT>"
 }
 
-extension TweakAccessorCodeGenerator {
+extension CodeGenerator {
     
     func generateConstantsFileContent(tweaks: [Tweak],
-                                      configuration: Configuration) -> String {
-        let template = self.constantsTemplate(with: configuration.accessorName)
+                                      accessorClassName: String) -> String {
+        let template = self.constantsTemplate(with: accessorClassName)
         let featureConstants = self.featureConstantsCodeBlock(with: tweaks)
         let variableConstants = self.variableConstantsCodeBlock(with: tweaks)
         
@@ -33,10 +33,10 @@ extension TweakAccessorCodeGenerator {
     
     func generateAccessorFileContent(tweaksFilename: String,
                                      tweaks: [Tweak],
-                                     configuration: Configuration) -> String {
-        let template = self.accessorTemplate(with: configuration.accessorName)
+                                     accessorClassName: String) -> String {
+        let template = self.accessorTemplate(with: accessorClassName)
         let tweakManager = self.tweakManagerCodeBlock()
-        let classContent = self.classContent(with: tweaks, configuration: configuration)
+        let classContent = self.classContent(with: tweaks)
         
         let content = template
             .replacingOccurrences(of: tweakManagerConst, with: tweakManager)
@@ -124,7 +124,7 @@ extension TweakAccessorCodeGenerator {
         """
     }
     
-    private func classContent(with tweaks: [Tweak], configuration: Configuration) -> String {
+    private func classContent(with tweaks: [Tweak]) -> String {
         var content: Set<String> = []
         tweaks.forEach {
             content.insert(tweakComputedProperty(for: $0))
