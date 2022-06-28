@@ -14,15 +14,12 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
-            path: "Sources",
-            resources: [
-                .process("Resources")
-            ]
+            path: "Framework/Sources"
         ),
         .testTarget(
             name: "UnitTests",
             dependencies: ["TweakAccessorGenerator"],
-            path: "Tests",
+            path: "Tests/Sources",
             resources: [
                 .process("Resources")
             ]
