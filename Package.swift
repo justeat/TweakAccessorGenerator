@@ -20,7 +20,7 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "TweakAccessorGeneratorTests",
+            name: "UnitTests",
             dependencies: ["TweakAccessorGenerator"],
             path: "Tests",
             resources: [
