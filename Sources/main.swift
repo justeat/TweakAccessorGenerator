@@ -8,27 +8,26 @@ import ArgumentParser
 
 struct TweakAccessorGenerator: ParsableCommand {
     
-    @Option(name: .shortAndLong, help: "The local tweaks file path.")
+    @Option(name: .shortAndLong, help: "The path to the tweaks file.")
     var localTweaksFilePath: String
     
-    @Option(name: .shortAndLong, help: "The output folder.")
+    @Option(name: .shortAndLong, help: "The path to the output folder.")
     var outputFolder: String
     
-    @Option(name: .shortAndLong, help: "The configuration folder.")
-    var configurationFolder: String
+    @Option(name: .shortAndLong, help: "The path to the configuration json file.")
+    var configurationPath: String
     
     private var tweaksFilename: String {
         let url = URL(fileURLWithPath: localTweaksFilePath)
         return String(url.lastPathComponent.split(separator: ".").first!)
     }
     
-    private var configurationFolderURL: URL {
-        URL(fileURLWithPath: configurationFolder)
+    private var configurationURL: URL {
+        URL(fileURLWithPath: configurationPath)
     }
     
     private func loadConfigurationFromJson() -> Configuration {
-        let configurationUrl = configurationFolderURL.appendingPathComponent("config.json")
-        let jsonData = try! Data(contentsOf: configurationUrl)
+        let jsonData = try! Data(contentsOf: configurationURL)
         let decodedResult = try! JSONDecoder().decode(Configuration.self, from: jsonData)
         return decodedResult
     }
