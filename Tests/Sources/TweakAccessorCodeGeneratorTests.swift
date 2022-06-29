@@ -12,7 +12,7 @@ class TweakAccessorCodeGeneratorTests: XCTestCase {
     private let tweaksFilename = "ValidTweaks_LowPriority"
     private var tweaksFilePath: String!
     private let generatedClassName = "GeneratedTweakAccessor"
-    private var codeGenerator: TweakAccessorCodeGenerator!
+    private var codeGenerator: CodeGenerator!
     private var tweakLoader: TweakLoader!
     private var tweaks: [Tweak]!
     
@@ -20,7 +20,7 @@ class TweakAccessorCodeGeneratorTests: XCTestCase {
         try super.setUpWithError()
         bundle = Bundle.module
         tweaksFilePath = try XCTUnwrap(bundle.path(forResource: tweaksFilename, ofType: "json"))
-        codeGenerator = TweakAccessorCodeGenerator()
+        codeGenerator = CodeGenerator()
         tweakLoader = TweakLoader()
         tweaks = try tweakLoader.load(tweaksFilePath)
     }
@@ -35,18 +35,17 @@ class TweakAccessorCodeGeneratorTests: XCTestCase {
     }
     
     func test_generateConstants_output() throws {
-        let configuration = Configuration(accessorName: "GeneratedTweakAccessorContent")
-        let content = codeGenerator.generateConstantsFileContent(tweaks: tweaks, configuration: configuration)
+        let content = codeGenerator.generateConstantsFileContent(tweaks: tweaks,
+                                                                 accessorClassName: "GeneratedTweakAccessorContent")
         let testContentPath = try XCTUnwrap(bundle.path(forResource: "GeneratedTweakAccessor+ConstantsContent", ofType: ""))
         let testContent = try String(contentsOfFile: testContentPath, encoding: .utf8)
         XCTAssertEqual(content, testContent)
     }
     
     func test_generateAccessor_output() throws {
-        let configuration = Configuration(accessorName: "GeneratedTweakAccessorContent")
         let content = codeGenerator.generateAccessorFileContent(tweaksFilename: tweaksFilename,
                                                                 tweaks: tweaks,
-                                                                configuration: configuration)
+                                                                accessorClassName: "GeneratedTweakAccessorContent")
         let testContentPath = try XCTUnwrap(bundle.path(forResource: "GeneratedTweakAccessorContent", ofType: ""))
         let testContent = try String(contentsOfFile: testContentPath, encoding: .utf8)
         
