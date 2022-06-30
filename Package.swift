@@ -5,6 +5,13 @@ import PackageDescription
 
 let package = Package(
     name: "TweakAccessorGenerator",
+    platforms: [
+        .macOS(.v10_14)
+    ],
+    products: [
+        .executable(name: "TweakAccessorGenerator",
+                    targets: ["TweakAccessorGenerator"])
+    ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.1.2")
     ],
