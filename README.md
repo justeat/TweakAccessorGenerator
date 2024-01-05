@@ -1,5 +1,7 @@
 # TweakAccessorGenerator
 
+### Warning: This library is not supported by Just Eat Takeaway anymore and therefore considered deprecated. The repository has been archived. We have moved from [JustTweak](https://github.com/justeat/JustTweak) to [Toggles](https://github.com/TogglesPlatform/Toggles).
+
 This tool generates Swift code for accessing flags using JustTweak.
 
 The tool should be invoked with the following arguments:
